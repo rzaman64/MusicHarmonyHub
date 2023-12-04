@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="451.0" prefWidth="602.0" style="-fx-background-color: #2b2b2b;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.groupproject.WelcomeUserController">
+   <children>
+      <HBox alignment="CENTER" opacity="0.36" prefHeight="54.0" prefWidth="602.0" style="-fx-background-color: #18191A;">
+         <children>
+            <Label text="Welcome " textFill="WHITE" />
+            <Label fx:id="usernamelabel" text="(username)" textFill="#1ffcff" />
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text=", please choose your interests." />
+         </children></HBox>
+      <ImageView fx:id="countrygenreimg" fitHeight="159.0" fitWidth="159.0" layoutX="222.0" layoutY="61.0" onMouseClicked="#imgSelectHandler" onMouseEntered="#imgHoverHandler" onMouseExited="#imgExitHandler" opacity="0.92" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@genres/countrygenre.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="chillgenreimg" fitHeight="159.0" fitWidth="159.0" layoutX="29.0" layoutY="61.0" onMouseClicked="#imgSelectHandler" onMouseEntered="#imgHoverHandler" onMouseExited="#imgExitHandler" opacity="0.92" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@genres/chillgenre.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hiphogenreimg" fitHeight="159.0" fitWidth="159.0" layoutX="407.0" layoutY="61.0" onMouseClicked="#imgSelectHandler" onMouseEntered="#imgHoverHandler" onMouseExited="#imgExitHandler" opacity="0.92" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@genres/hiphopgenre.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="moodgenreimg" fitHeight="159.0" fitWidth="159.0" layoutX="29.0" layoutY="229.0" onMouseClicked="#imgSelectHandler" onMouseEntered="#imgHoverHandler" onMouseExited="#imgExitHandler" opacity="0.92" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@genres/moodgenre.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="partygenreimg" fitHeight="159.0" fitWidth="159.0" layoutX="222.0" layoutY="229.0" onMouseClicked="#imgSelectHandler" onMouseEntered="#imgHoverHandler" onMouseExited="#imgExitHandler" opacity="0.92" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@genres/partygenre.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="wktgenreimg" fitHeight="159.0" fitWidth="159.0" layoutX="407.0" layoutY="229.0" onMouseClicked="#imgSelectHandler" onMouseEntered="#imgHoverHandler" onMouseExited="#imgExitHandler" opacity="0.92" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@genres/workoutgenre.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="continueBtn" layoutX="248.0" layoutY="410.0" mnemonicParsing="false" onAction="#continueBtnHandler" onMouseEntered="#btnHoverHandler" onMouseExited="#btnExitHandler" prefHeight="26.0" prefWidth="105.0" style="-fx-background-color: #949494;" text="Confirm" textFill="#5e5d5d" />
+   </children>
+</AnchorPane>
