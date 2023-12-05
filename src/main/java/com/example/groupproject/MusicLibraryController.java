@@ -12,6 +12,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.Glow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -19,6 +21,15 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.tag.FieldKey;
+import org.jaudiotagger.tag.Tag;
+import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
+import org.jaudiotagger.tag.id3.framebody.FrameBodyAPIC;
+import org.jaudiotagger.tag.images.Artwork;
+
+import java.io.ByteArrayInputStream;
 import java.text.DecimalFormat;
 
 import java.io.File;
@@ -48,6 +59,8 @@ public class MusicLibraryController implements Initializable{
     private Pane draggablePane;
     @FXML
     private TextField searchSongTextField;
+    @FXML
+    private ImageView displayImgIcon;
 
 
 // For playing music
@@ -162,7 +175,6 @@ public class MusicLibraryController implements Initializable{
         mediaPlayer.setVolume(volumeSlider.getValue() *0.01);
 
         mediaPlayer.play();
-        mediaPlayer.play();
     }
 
     @FXML
@@ -234,7 +246,7 @@ public class MusicLibraryController implements Initializable{
             selectedSongModule = vItems.getChildren().get(songNumber);
             selectedSongModule.setStyle("-fx-background-color: #165DDB");
 
-            //mediaPlayer.play();
+            mediaPlayer.play();
             playBtnHandler();
 
         }
@@ -447,8 +459,44 @@ public class MusicLibraryController implements Initializable{
         }
     }
 
+
+    private Image loadAlbumArt(String mp3FileName) {
+        try {
+            // Assuming the mp3 files are in the "mp3File" directory
+            String mp3FilePath = "mp3File/" + mp3FileName;
+            File mp3File = new File(mp3FilePath);
+
+            if (mp3File.exists()) {
+                AudioFile audioFile = AudioFileIO.read(mp3File);
+
+                if (audioFile != null) {
+                    Tag tag = audioFile.getTag();
+
+                    if (tag instanceof AbstractID3v2Tag) {
+                        AbstractID3v2Tag id3v2Tag = (AbstractID3v2Tag) tag;
+
+                        // Find the first artwork
+                        Artwork artwork = id3v2Tag.getFirstArtwork();
+
+                        if (artwork != null) {
+                            byte[] imageData = artwork.getBinaryData();
+                            return new Image(new ByteArrayInputStream(imageData));
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Return a default image if no album art is found
+        return new Image(getClass().getResourceAsStream("/icons/defaultimage3.png"));
+    }
+
     private Node createSongModule(String songName, String artistName, String mp3File) {
         try {
+            System.out.println("Current Working Directory: " + System.getProperty("user.dir"));
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("song-module.fxml"));
             Node songModule = fxmlLoader.load();
 
@@ -463,6 +511,13 @@ public class MusicLibraryController implements Initializable{
 
             // Set the click event for song module
             songModule.setOnMouseClicked(event -> handleSongModuleClick(songModule, songName, artistName, mp3File));
+
+            // Load album art
+            ImageView imgIcon = (ImageView) songModule.lookup("#imgIcon");
+            Image albumArt = loadAlbumArt(mp3File);
+            if (albumArt != null) {
+                imgIcon.setImage(albumArt);
+            }
 
             return songModule;
         } catch (IOException e) {
@@ -485,7 +540,8 @@ public class MusicLibraryController implements Initializable{
                 if (mp3File.isFile() && mp3File.getName().toLowerCase().endsWith(".mp3")) {
                     String fileName = mp3File.getName();
                     String songName = fileName.substring(0, fileName.lastIndexOf("."));
-                    String artistName = "Unknown";
+
+                    String artistName = songName;
                     System.out.println("test 1");
 
                     Node songModule = createSongModule(songName, artistName, fileName);
@@ -525,9 +581,17 @@ public class MusicLibraryController implements Initializable{
         // Update songNumber based on the clicked song module
         songNumber = vItems.getChildren().indexOf(songModule);
 
+        // Load album art and update the displayImgIcon
+        Image albumArt = loadAlbumArt(mp3File);
+        if (albumArt != null) {
+            displayImgIcon.setImage(albumArt);
+        } else {
+            // Set a default image if no album art is found
+            displayImgIcon.setImage(new Image(getClass().getResourceAsStream("/icons/defaultimage3.png")));
+        }
+
         String songFilePath = "mp3File/" + mp3File;
         System.out.println("Song file path: " + songFilePath);
-        Media media = new Media(new File(songFilePath).toURI().toString());
         songNameLabel.setText(mp3File);
 
         // Check if the song is currently playing

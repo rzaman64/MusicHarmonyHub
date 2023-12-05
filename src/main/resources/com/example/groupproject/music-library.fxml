@@ -168,7 +168,7 @@
                <children>
                   <Pane layoutX="67.0" layoutY="44.0">
                      <children>
-                        <ImageView fx:id="songIconImg" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="displayImgIcon" fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../icons/defaultimage3.png" />
                            </image>

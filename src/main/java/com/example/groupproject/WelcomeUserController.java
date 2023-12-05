@@ -76,6 +76,7 @@ public class WelcomeUserController {
         usernamelabel.setText(username);
     }
 
+
     @FXML
     void continueBtnHandler(ActionEvent event) {
         try {
@@ -87,6 +88,8 @@ public class WelcomeUserController {
             currStge.setScene(scene);
             currStge.centerOnScreen();
             currStge.show();
+            System.out.println("Current Working Directory: " + System.getProperty("user.dir"));
+
         } catch (IOException e) {
             System.out.println(e);
             throw new RuntimeException(e);
