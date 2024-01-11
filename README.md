@@ -36,7 +36,7 @@ A way to fix this issue is by making sure to do the following:
    File -> Project Properties -> Libraries
        - Delete any unwanted libraries *Usually maven*
        - Press the plus button above the libary column (middle column) 
-       - Open your JDK folder as shown (by using :
+       - Open your JDK folder as shown by using :
                openjfx-21.0.1_windows-x64_bin-sdk -> javafx-sdk-21.0.1 -> lib
 
 - Once you have highlighted the "Lib" folder, add it to the library.
