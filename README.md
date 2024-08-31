@@ -1,6 +1,6 @@
 **Welcome to the Music Harmony Hub!**
-My name is Rasib,  and I will be giving you a few quick tips just so this application runs smoothly and efficiently.
-bellow. The purpose of this application is to run music by soly using the ".mp3" files you may have laying around
+My name is Rasib,  and I will be giving you a few quick tips just so this application runs smoothly and efficiently. 
+The purpose of this application is to run music by soly using the ".mp3" files you may have laying around
 within your computer. The best way to utilize this feature is by opening the application files and copy those MP3 files
 into the "mp3FILE" folder.
 
